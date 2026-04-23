@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Snowflake: Organizing &amp; Optimizing Financial Data</title>
+
+<!-- Bootstrap CSS -->
+<link
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+    rel="stylesheet"
+    integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+    crossorigin="anonymous"
+>
+
+<!-- Site CSS -->
+<link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+
+    <div class="hero text-center">
+        <h1 class="fw-bold">Snowflake: Organizing &amp; Optimizing Financial Data</h1>
+        <p class="mb-0">A process-driven guide to building scalable, automated financial data environments.</p>
+    </div>
+
+    <div class="sticky-nav">
+        <div class="hero-nav">
+            <a href="#section1">Star Schema</a>
+            <a href="#section2">Secure Views</a>
+            <a href="#section3">Streams</a>
+            <a href="#section4">Window Functions</a>
+            <a href="#section5">Clustering Keys</a>
+        </div>
+    </div>
+
+    <main class="container has-sidebar">
+
+        <aside class="left-sidebar">
+            <h3 class="fw-bold"><b>Automation Quick Links</b></h3>
+
+            <a href="advanced_snowflake.html" class="quick-link">Snowflake Automation Techniques</a>
+            <a href="advanced_tableau.html" class="quick-link">Tableau Automation Techniques</a>
+            <a href="advanced-spreadsheet.html" class="quick-link">Spreadsheet Automation</a>
+            <a href="erp_systems.html" class="quick-link">ERP Systems</a>
+            <a href="python.html" class="quick-link">Python &amp; SQL Analytics</a>
+
+            <p class="placeholder-text mb-0">
+                <i>Use these links to move quickly between the major technology sections of the site.</i>
+            </p>
+        </aside>
+
+        <div class="main-content">
+
+            <div class="competency-buttons">
+                <a href="advanced-spreadsheet.html" class="competency-button">
+                    Advanced Spreadsheets &amp; VBA Automation
+                </a>
+
+                <a href="erp_systems.html" class="competency-button">
+                    Enterprise Resource Planning (ERP) Systems
+                </a>
+
+                <a href="python.html" class="competency-button">
+                    Advanced Data Analytics (Python &amp; SQL)
+                </a>
+            </div>
+
+            <div class="back-button-container">
+                <a href="index.html" class="back-button">
+                    <svg class="home-icon" viewBox="0 0 24 24" aria-hidden="true">
+                        <path d="M12 3l9 8h-3v9h-5v-6H11v6H6v-9H3l9-8z"></path>
+                    </svg>
+                    Back to Main Page
+                </a>
+            </div>
+
+            <div class="intro-section">
+                <div class="content-wrapper">
+                    <div class="content-image float-left">
+                        <img
+                            src="images/snowflake_dashboard.png"
+                            alt="Snowflake Homepage Interface"
+                            title="Snowflake Homepage Interface"
+                            width="380"
+                            height="220"
+                            class="img-fluid rounded shadow-sm"
+                        >
+                        <div class="photo-credit">
+                            <i>Source: https://docs.snowflake.com/en/user-guide/ui-snowsight-homepage</i>
+                        </div>
+                    </div>
+
+                    <div class="content-text">
+                        <h2 class="fw-bold">Understanding Snowflake as a Financial Data Foundation</h2>
+                        <p>
+                            Snowflake is best understood as a structured platform for organizing, transforming, and delivering financial data at scale. Rather than serving as a front-end reporting layer, it functions as a centralized environment where raw data can be stored, modeled, standardized, and prepared for downstream analysis. This makes it especially valuable for accounting and finance teams working across large transaction volumes, multiple entities, and increasingly automated reporting demands.
+                        </p>
+
+                        <p>
+                            In modern financial environments, spreadsheet-based processing alone often becomes difficult to maintain as data volume, complexity, and reporting expectations increase. Snowflake helps solve this problem by enabling teams to separate raw source data from reporting logic, automate recurring transformations, and create dependable data structures that can support dashboards, reconciliations, period reporting, and analytical review. When implemented correctly, it becomes a stable foundation rather than just another storage location.
+                        </p>
+
+                        <p>
+                            The sections below focus on some of the most practical Snowflake concepts for finance and accounting modernization. Each topic is presented as a reference-oriented framework that can be adapted to real business data while preserving control, scalability, and clarity.
+                        </p>
+
+                        <h3 class="fw-bold">Getting Started: Where to Run SQL in Snowflake</h3>
+                        <p>
+                            Before working through the examples below, you’ll need to access Snowflake’s SQL workspace and configure your environment correctly. That includes selecting the correct database, schema, and warehouse so that your queries execute against the proper data and compute layer.
+                        </p>
+
+                        <h3 class="fw-bold">Step-by-Step Navigation</h3>
+                        <ol>
+                            <li>Log into your Snowflake account.</li>
+                            <li>From the main dashboard, navigate to <b>Worksheets</b>.</li>
+                            <li>Click <b>“+ Worksheet”</b> to open a new SQL editor.</li>
+                            <li>In the top toolbar, select the appropriate environment settings:
+                                <ul>
+                                    <li><b>Database</b> &rarr; where your data is stored.</li>
+                                    <li><b>Schema</b> &rarr; your working layer or object grouping.</li>
+                                    <li><b>Warehouse</b> &rarr; the compute engine required to run your queries.</li>
+                                </ul>
+                            </li>
+                            <li>Paste your SQL code into the editor.</li>
+                            <li>Click <b>Run</b> to execute.</li>
+                        </ol>
+
+                        <div class="highlight-box">
+                            <b>Tip:</b> If your query does not run, the issue is often that a warehouse has not been selected, is paused, or the session is pointing to the wrong database or schema.
+                        </div>
+
+                        <hr style="border-color: #eef2f6; margin: 30px 0; border-width: 2px;">
+
+                        <h2 class="fw-bold">Before You Begin: Adapting Your Data</h2>
+                        <p>
+                            All examples in this guide use placeholder names. You’ll need to map them to your actual data structure. Think of each example as a framework: the logic remains consistent, but the object names and field names should be adjusted to match your source systems and reporting model.
+                        </p>
+
+                        <table class="table">
+                            <tr>
+                                <th>Placeholder</th>
+                                <th>Replace With</th>
+                            </tr>
+                            <tr>
+                                <td><code>raw_gl_data</code></td>
+                                <td>Your source table (ERP export, AP transactions, or other detailed financial feed)</td>
+                            </tr>
+                            <tr>
+                                <td><code>amount</code></td>
+                                <td>Transaction value field or journal line amount column</td>
+                            </tr>
+                            <tr>
+                                <td><code>account_id</code></td>
+                                <td>GL account number or account identifier</td>
+                            </tr>
+                            <tr>
+                                <td><code>date</code></td>
+                                <td>Posting date, transaction date, or accounting period reference</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div class="module-section" id="section1">
+                <div class="content-wrapper">
+                    <div class="content-image float-right">
+                        <img
+                            src="images/5_star_modeling.jpg"
+                            alt="Star Schema Diagram"
+                            title="Star Schema Diagram"
+                            width="380"
+                            height="220"
+                            class="img-fluid rounded shadow-sm"
+                        >
+                        <div class="photo-credit">
+                            <i>Source: https://www.datacamp.com/blog/star-schema-vs-snowflake-schema</i>
+                        </div>
+                    </div>
+
+                    <div class="content-text">
+                        <h2 class="fw-bold">1. Build a Finance-Specific Data Model (Star Schema)</h2>
+
+                        <h3 class="fw-bold">Why It Matters</h3>
+                        <p>
+                            Raw general ledger and transaction-level data are rarely structured for direct analysis. By separating data into a fact table for transactional activity and dimension tables for accounts, vendors, entities, periods, or departments, you create a cleaner analytical model that is easier to query, maintain, and scale. This structure improves consistency across reporting while reducing repeated transformation work.
+                        </p>
+
+                        <p>
+                            A strong data model also helps finance teams avoid embedding reporting logic directly into every query. Instead, the model itself becomes the foundation for repeatable reporting, dashboard development, reconciliations, and performance analysis. This improves both efficiency and control because users are working from a standardized structure rather than inventing a new approach each time data is needed.
+                        </p>
+
+                        <p>
+                            In practice, this means Snowflake can serve as a durable reporting layer for downstream tools such as Tableau, Power BI, or internally developed analytics workflows. The better the underlying model, the more reliable the outputs become.
+                        </p>
+
+                        <h3 class="fw-bold">Key Snowflake Features</h3>
+                        <ul>
+                            <li>Tables</li>
+                            <li>Views</li>
+                        </ul>
+
+                        <details>
+                            <summary>The Template Code</summary>
+                            <div class="panel">
+<pre><code>-- Create a centralized transaction (fact) table
+CREATE TABLE fact_gl_transactions AS
+SELECT * FROM raw_gl_data;
+
+-- Create a dimension table for accounts
+CREATE TABLE dim_account AS
+SELECT DISTINCT account_id, account_name FROM raw_gl_data;
+
+-- Build a clean reporting view
+CREATE VIEW vw_financials AS
+SELECT 
+   f.amount,
+   d.account_name,
+   f.date
+FROM fact_gl_transactions f
+JOIN dim_account d 
+   ON f.account_id = d.account_id;</code></pre>
+                            </div>
+                        </details>
+
+                        <h3 class="fw-bold">How to Customize This</h3>
+                        <ul>
+                            <li><b>Identify Your Source Table:</b> Replace <code>raw_gl_data</code> with your actual dataset.</li>
+                            <li><b>Map Your Columns:</b>
+                                <ul>
+                                    <li><code>amount</code> &rarr; <code>transaction_amount</code>, <code>journal_line_amount</code></li>
+                                    <li><code>account_id</code> &rarr; <code>gl_account_number</code></li>
+                                    <li><code>date</code> &rarr; <code>posting_date</code></li>
+                                </ul>
+                            </li>
+                            <li><b>Expand for Reporting Needs:</b> Join additional dimensions such as <code>department_id</code>, <code>cost_center</code>, or <code>vendor_id</code>.</li>
+                        </ul>
+
+                        <details>
+                            <summary>See It In Action</summary>
+                            <div class="panel">
+<pre><code>CREATE OR REPLACE TABLE fact_gl_transactions AS
+SELECT  
+   posting_date AS transaction_date,
+   gl_account_number AS account_id,
+   debit_credit_net AS net_amount,
+   'QUICKBOOKS' AS source
+FROM raw_quickbooks_export;</code></pre>
+                            </div>
+                        </details>
+
+                        <div class="highlight-box">
+                            <b>What You Just Built:</b> You created a structured financial data layer that separates raw source data from reporting logic, making analysis more scalable and dependable.
+                        </div>
+                    </div>
+
+                    <div class="resource-links">
+                        <h3 class="fw-bold">Additional Resources &amp; Reference Links</h3>
+                        <ul>
+                            <li><a href="https://www.snowflake.com/en/fundamentals/star-schema/" target="_blank" rel="noopener noreferrer">Snowflake Fundamentals: Star Schema</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="module-section" id="section2">
+                <div class="content-wrapper">
+                    <div class="content-image float-left">
+                        <img
+                            src="images/snowflake_views.jpg"
+                            alt="Secure Views Diagram"
+                            title="Secure Views Diagram"
+                            width="380"
+                            height="220"
+                            class="img-fluid rounded shadow-sm"
+                        >
+                        <div class="photo-credit">
+                            <i>Source: https://www.phdata.io/blog/snowflake-secure-vs-non-secure-views-in-data-sharing/</i>
+                        </div>
+                    </div>
+
+                    <div class="content-text">
+                        <h2 class="fw-bold">2. Use Views as Your Presentation Layer</h2>
+
+                        <h3 class="fw-bold">Why It Matters</h3>
+                        <p>
+                            Views provide a controlled interface between raw data and reporting tools. Rather than exposing every source table directly to end users or downstream systems, views allow you to present a cleaner, more intentional version of the data. This supports consistency in calculations, simplifies reporting logic, and reduces the risk of user error.
+                        </p>
+
+                        <p>
+                            For financial reporting, this matters because metrics should be defined once and reused consistently. A well-designed view can standardize account groupings, reporting labels, date logic, and calculation rules, ensuring that different dashboards or reports are built from the same foundation rather than conflicting interpretations of the same data.
+                        </p>
+
+                        <p>
+                            In addition, secure views help protect sensitive transactional detail while still making the necessary reporting fields available. This creates a better balance between accessibility and control.
+                        </p>
+
+                        <h3 class="fw-bold">Key Snowflake Features</h3>
+                        <ul>
+                            <li>Secure Views</li>
+                        </ul>
+
+                        <details>
+                            <summary>The Template Code</summary>
+                            <div class="panel">
+<pre><code>CREATE OR REPLACE SECURE VIEW vw_report_name AS
+SELECT 
+   date,
+   account_id,
+   amount,
+   CASE 
+        WHEN account_id BETWEEN '0000' AND '9999' THEN 'Group A'
+        ELSE 'Group B'
+   END AS account_group
+FROM fact_table_name;</code></pre>
+                            </div>
+                        </details>
+
+                        <h3 class="fw-bold">How To Customize This</h3>
+                        <ul>
+                            <li><b>Rename the View:</b> Set the target output (e.g., <code>vw_income_statement</code>, <code>vw_balance_sheet</code>).</li>
+                            <li><b>Define Financial Categories:</b> Use a CASE statement or mapping table to group accounts.</li>
+                            <li><b>Point to Your Data Model:</b> Replace <code>fact_table_name</code> with your actual reporting layer.</li>
+                        </ul>
+
+                        <details>
+                            <summary>See It In Action</summary>
+                            <div class="panel">
+<pre><code>CREATE OR REPLACE SECURE VIEW vw_income_statement_current AS
+SELECT 
+   transaction_date,
+   gl_account_number,
+   net_amount,
+   CASE 
+       WHEN gl_account_number BETWEEN 4000 AND 4999 THEN 'Revenue'
+       WHEN gl_account_number BETWEEN 5000 AND 5999 THEN 'Cost of Goods Sold'
+       WHEN gl_account_number BETWEEN 6000 AND 7999 THEN 'Operating Expenses'
+       ELSE 'Other'
+   END AS account_category
+FROM fact_gl_transactions;</code></pre>
+                            </div>
+                        </details>
+
+                        <div class="highlight-box">
+                            <b>What You Just Built:</b> A standardized reporting layer that can support dashboards and financial outputs without exposing raw transactional data directly.
+                        </div>
+                    </div>
+
+                    <div class="resource-links">
+                        <h3 class="fw-bold">Additional Resources &amp; Reference Links</h3>
+                        <ul>
+                            <li><a href="https://docs.snowflake.com/en/user-guide/views-introduction" target="_blank" rel="noopener noreferrer">Snowflake Documentation: Secure Views Introduction</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="module-section" id="section3">
+                <div class="content-wrapper">
+                    <div class="content-image float-right">
+                        <img
+                            src="images/snowflake_flow.jpg"
+                            alt="Snowflake Streams Automation"
+                            title="Snowflake Streams Automation"
+                            width="380"
+                            height="220"
+                            class="img-fluid rounded shadow-sm"
+                        >
+                        <div class="photo-credit">
+                            <i>Source: https://articles.analytics.today/snowflake-streams-and-tasks-best-practices</i>
+                        </div>
+                    </div>
+
+                    <div class="content-text">
+                        <h2 class="fw-bold">3. Automate Data Cleaning with Streams &amp; Tasks</h2>
+
+                        <h3 class="fw-bold">Why It Matters</h3>
+                        <p>
+                            Financial data changes continuously as new journal activity, AP transactions, and source-system updates flow into the environment. Manual refresh processes are difficult to sustain and increase the risk of delays, omissions, and inconsistent timing. Snowflake Streams and Tasks help automate this work by tracking data changes and triggering scheduled processing steps.
+                        </p>
+
+                        <p>
+                            This is especially valuable in accounting environments that depend on timely, repeatable refresh cycles for dashboards, reconciliations, and management reporting. Instead of relying on manual reruns or ad hoc data pulls, automation makes the process more dependable and easier to manage over time.
+                        </p>
+
+                        <p>
+                            With the right task design, Snowflake becomes more than a storage platform. It becomes an active part of the data pipeline, continuously preparing and updating financial data in the background.
+                        </p>
+
+                        <h3 class="fw-bold">Key Snowflake Features</h3>
+                        <ul>
+                            <li>Streams (track changes in data)</li>
+                            <li>Tasks (automate execution)</li>
+                        </ul>
+
+                        <details>
+                            <summary>The Template Code</summary>
+                            <div class="panel">
+<pre><code>-- Track changes in raw data
+CREATE STREAM gl_stream 
+ON TABLE raw_gl_data;
+
+-- Automate data processing on a schedule
+CREATE TASK clean_gl_task
+WAREHOUSE = compute_wh
+SCHEDULE = '1 HOUR'
+AS
+INSERT INTO fact_gl_transactions
+SELECT * FROM gl_stream;</code></pre>
+                            </div>
+                        </details>
+
+                        <h3 class="fw-bold">How to Customize This</h3>
+                        <ul>
+                            <li><b>Assign the Correct Warehouse:</b> Replace <code>compute_wh</code> with your specific resource.</li>
+                            <li><b>Adjust Timing:</b> Frequent updates &rarr; <code>'15 MINUTE'</code>, Daily &rarr; <code>'1 DAY'</code></li>
+                            <li><b>Add Data Cleaning Logic:</b> Insert <code>WHERE</code> clauses (e.g., <code>WHERE posting_status = 'POSTED'</code>).</li>
+                        </ul>
+
+                        <details>
+                            <summary>See It In Action</summary>
+                            <div class="panel">
+<pre><code>CREATE OR REPLACE TASK task_load_daily_gl
+WAREHOUSE = finance_transform_wh
+SCHEDULE = 'USING CRON 0 0 * * * America/Chicago'
+AS
+INSERT INTO fact_gl_transactions (transaction_date, gl_account_number, net_amount)
+SELECT posting_date, gl_account_number, line_amount
+FROM stream_erp_gl_export
+WHERE posting_status = 'POSTED';</code></pre>
+                            </div>
+                        </details>
+
+                        <div class="highlight-box">
+                            <b>What You Just Built:</b> An automated data pipeline that continuously updates your financial model with less manual intervention.
+                        </div>
+                    </div>
+
+                    <div class="resource-links">
+                        <h3 class="fw-bold">Additional Resources &amp; Reference Links</h3>
+                        <ul>
+                            <li><a href="https://docs.snowflake.com/en/user-guide/streams-intro" target="_blank" rel="noopener noreferrer">Snowflake Documentation: Introduction to Streams</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="module-section" id="section4">
+                <div class="content-wrapper">
+                    <div class="content-image float-left">
+                        <img
+                            src="images/snowflake_windowfunctions.png"
+                            alt="Window Functions Sliding Frame"
+                            title="Window Functions Sliding Frame"
+                            width="380"
+                            height="220"
+                            class="img-fluid rounded shadow-sm"
+                        >
+                        <div class="photo-credit">
+                            <i>Source: https://docs.snowflake.com/en/user-guide/functions-window-using</i>
+                        </div>
+                    </div>
+
+                    <div class="content-text">
+                        <h2 class="fw-bold">4. Use Window Functions for Financial Analysis</h2>
+
+                        <h3 class="fw-bold">Why It Matters</h3>
+                        <p>
+                            Financial reporting frequently requires running totals, year-to-date values, period-over-period comparisons, and grouped trend analysis. Window functions make these calculations possible directly within Snowflake, allowing the database to perform advanced analytical logic without depending on spreadsheet formulas or external processing layers.
+                        </p>
+
+                        <p>
+                            This improves both efficiency and consistency because the same logic can be reused across multiple reporting outputs. Rather than recalculating these metrics in separate tools, the database itself becomes the source of truth for more advanced financial computations.
+                        </p>
+
+                        <p>
+                            In practice, this means analysts can build more scalable reporting pipelines while reducing manual calculation risk and improving reproducibility across dashboards and exports.
+                        </p>
+
+                        <h3 class="fw-bold">Key Snowflake Feature</h3>
+                        <ul>
+                            <li>Window Functions</li>
+                        </ul>
+
+                        <details>
+                            <summary>The Template Code</summary>
+                            <div class="panel">
+<pre><code>SELECT 
+   category,
+   date,
+   amount,
+   SUM(amount) OVER (PARTITION BY category ORDER BY date) AS running_total
+FROM vw_financials;</code></pre>
+                            </div>
+                        </details>
+
+                        <h3 class="fw-bold">How to Customize This</h3>
+                        <ul>
+                            <li><b>Create Rolling Totals:</b> Replace <code>category</code> with the specific segment you want to analyze.</li>
+                            <li><b>Align the Timeline:</b> Ensure your <code>ORDER BY</code> clause uses your most granular time identifier.</li>
+                        </ul>
+
+                        <details>
+                            <summary>See It In Action</summary>
+                            <div class="panel">
+<pre><code>SELECT 
+   department_name,
+   posting_period,
+   net_amount,
+   SUM(net_amount) OVER (PARTITION BY department_name, fiscal_year ORDER BY posting_period) AS ytd_department_expense
+FROM vw_income_statement_current
+WHERE account_category = 'Operating Expenses';</code></pre>
+                            </div>
+                        </details>
+
+                        <div class="highlight-box">
+                            <b>What You Just Built:</b> A dynamic financial calculation engine that can support reporting logic without relying on spreadsheet-based formulas.
+                        </div>
+                    </div>
+
+                    <div class="resource-links">
+                        <h3 class="fw-bold">Additional Resources &amp; Reference Links</h3>
+                        <ul>
+                            <li><a href="https://docs.snowflake.com/en/user-guide/functions-window-using" target="_blank" rel="noopener noreferrer">Snowflake Documentation: Using Window Functions</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="module-section" id="section5">
+                <div class="content-wrapper">
+                    <div class="content-image float-right">
+                        <img
+                            src="images/snowflake_clustering.jpg"
+                            alt="Clustering Keys Architecture"
+                            title="Clustering Keys Architecture"
+                            width="380"
+                            height="220"
+                            class="img-fluid rounded shadow-sm"
+                        >
+                        <div class="photo-credit">
+                            <i>Source: https://articles.analytics.today/snowflake-cluster-keys-and-micro-partition-elimination-best-practices</i>
+                        </div>
+                    </div>
+
+                    <div class="content-text">
+                        <h2 class="fw-bold">5. Improve Performance with Clustering Keys</h2>
+
+                        <h3 class="fw-bold">Why It Matters</h3>
+                        <p>
+                            As datasets grow to thousands or millions of financial records, performance becomes increasingly important. Clustering keys improve query performance by helping Snowflake organize how data is stored and retrieved, particularly when users frequently filter by the same fields.
+                        </p>
+
+                        <p>
+                            This matters in finance because slow queries can weaken the usability of dashboards, month-end reporting workflows, and detailed analytical review. Performance optimization becomes even more important when multiple users depend on the same reporting environment.
+                        </p>
+
+                        <p>
+                            When thoughtfully applied, clustering can reduce scan overhead and improve response time for large-scale reporting queries. It should be used strategically, focusing on columns that meaningfully affect query behavior rather than being applied indiscriminately.
+                        </p>
+
+                        <h3 class="fw-bold">Key Snowflake Feature</h3>
+                        <ul>
+                            <li>Clustering</li>
+                        </ul>
+
+                        <details>
+                            <summary>The Template Code</summary>
+                            <div class="panel">
+<pre><code>ALTER TABLE fact_gl_transactions 
+CLUSTER BY (date, account_id);</code></pre>
+                            </div>
+                        </details>
+
+                        <h3 class="fw-bold">How to Customize This</h3>
+                        <ul>
+                            <li><b>Choose Frequently Filtered Columns:</b> Prioritize columns like <code>date</code>, <code>account_id</code>, and <code>entity_id</code>.</li>
+                            <li><b>Order Strategically:</b> Place lower-cardinality fields first, followed by higher-cardinality fields when appropriate.</li>
+                        </ul>
+
+                        <details>
+                            <summary>See It In Action</summary>
+                            <div class="panel">
+<pre><code>ALTER TABLE fact_gl_transactions 
+CLUSTER BY (fiscal_year, entity_id, gl_account_number);</code></pre>
+                            </div>
+                        </details>
+
+                        <div class="highlight-box">
+                            <b>What You Just Built:</b> A performance-optimized dataset designed to support faster financial reporting and analytical querying at scale.
+                        </div>
+                    </div>
+
+                    <div class="resource-links">
+                        <h3 class="fw-bold">Additional Resources &amp; Reference Links</h3>
+                        <ul>
+                            <li><a href="https://docs.snowflake.com/en/user-guide/tables-clustering-keys" target="_blank" rel="noopener noreferrer">Snowflake Documentation: Understanding Clustering Keys</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </main>
+
+    <!-- Bootstrap JS bundle -->
+    <script
+        src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"
+    ></script>
+
+</body>
+</html>

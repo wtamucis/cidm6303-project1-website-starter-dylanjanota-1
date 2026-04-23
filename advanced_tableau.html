@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tableau: Streamlining &amp; Optimizing Financial Data Visualization</title>
+
+<!-- Bootstrap CSS -->
+<link
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+    rel="stylesheet"
+    integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+    crossorigin="anonymous"
+>
+
+<!-- Site CSS -->
+<link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+
+<div class="hero text-center">
+    <h1 class="fw-bold">Tableau: Streamlining &amp; Optimizing Financial Data</h1>
+    <p class="mb-0">A process-driven approach to building scalable, flexible financial reporting systems.</p>
+</div>
+
+<div class="sticky-nav">
+    <div class="hero-nav">
+        <a href="#section1">Relationships</a>
+        <a href="#section2">Calculated Fields</a>
+        <a href="#section3">Dashboards</a>
+        <a href="#section4">LOD Expressions</a>
+        <a href="#section5">Performance</a>
+    </div>
+</div>
+
+<main class="container has-sidebar">
+
+    <aside class="left-sidebar">
+        <h3 class="fw-bold"><b>Automation Quick Links</b></h3>
+
+        <a href="advanced_snowflake.html" class="quick-link">Snowflake Automation Techniques</a>
+        <a href="advanced_tableau.html" class="quick-link">Tableau Automation Techniques</a>
+        <a href="advanced-spreadsheet.html" class="quick-link">Spreadsheet Automation</a>
+        <a href="erp_systems.html" class="quick-link">ERP Systems</a>
+        <a href="python.html" class="quick-link">Python &amp; SQL Analytics</a>
+
+        <p class="placeholder-text mb-0">
+            <i>Use these links to move quickly between the major technology sections of the site.</i>
+        </p>
+    </aside>
+
+    <div class="main-content">
+
+        <div class="competency-buttons">
+            <a href="advanced-spreadsheet.html" class="competency-button">
+                Advanced Spreadsheets &amp; VBA Automation
+            </a>
+
+            <a href="erp_systems.html" class="competency-button">
+                Enterprise Resource Planning (ERP) Systems
+            </a>
+
+            <a href="python.html" class="competency-button">
+                Advanced Data Analytics (Python &amp; SQL)
+            </a>
+        </div>
+
+        <div class="back-button-container">
+            <a href="index.html" class="back-button">
+                <svg class="home-icon" viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M12 3l9 8h-3v9h-5v-6H11v6H6v-9H3l9-8z"></path>
+                </svg>
+                Back to Main Page
+            </a>
+        </div>
+
+        <div class="intro-section">
+            <div class="content-wrapper">
+
+                <div class="content-image float-left">
+                    <img
+                        src="images/tableau.jpg"
+                        alt="Tableau Interface"
+                        title="Tableau Interface"
+                        width="380"
+                        height="220"
+                        class="img-fluid rounded shadow-sm"
+                    >
+                    <div class="photo-credit">
+                        <i>Source: https://www.selectdistinct.co.uk/business-analytics-technologies/tableau-overview/</i>
+                    </div>
+                </div>
+
+                <div class="content-text">
+                    <h2 class="fw-bold">Understanding Tableau as a Financial Presentation Layer</h2>
+
+                    <p>
+                        Tableau should be viewed not as a data transformation tool, but as a highly optimized <b>presentation layer</b> designed to translate structured financial data into actionable insight. Its strength lies in its ability to connect to already-prepared datasets and render them into interactive, real-time dashboards that support rapid decision-making. When used correctly, Tableau becomes the final step in a broader financial data pipeline rather than the system where data preparation begins.
+                    </p>
+
+                    <p>
+                        For accounting and finance teams, this distinction is critical. Clean, well-structured data sourced from ERP systems, data warehouses, or automation pipelines enables Tableau to operate at peak efficiency. Poorly structured inputs, on the other hand, result in unreliable dashboards and degraded performance. As such, effective Tableau usage requires both technical awareness and disciplined data architecture upstream.
+                    </p>
+
+                    <p>
+                        The sections below outline the most impactful Tableau features for financial workflows, with a focus on building scalable, repeatable systems rather than one-off reports. Each concept is presented with practical implementation logic and guidance for adapting it to real-world accounting environments.
+                    </p>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="module-section" id="section1">
+            <div class="content-wrapper">
+
+                <div class="content-image float-right">
+                    <img
+                        src="images/tableau_relationships.gif"
+                        alt="Tableau Relationships Data Model"
+                        title="Tableau Relationships Data Model"
+                        width="380"
+                        height="220"
+                        class="img-fluid rounded shadow-sm"
+                    >
+                    <div class="photo-credit">
+                        <i>Source: https://help.tableau.com/current/pro/desktop/en-us/datasource_relationships_learnmorepage.htm</i>
+                    </div>
+                </div>
+
+                <div class="content-text">
+                    <h2 class="fw-bold">1. Building a Financial Data Model Using Relationships</h2>
+
+                    <p>
+                        Financial datasets rarely exist in isolation. General ledger activity, vendor records, budget data, and operational metrics are typically stored across multiple systems and tables. Tableau’s relationship model allows these datasets to remain logically connected without requiring rigid joins, preserving both flexibility and performance.
+                    </p>
+
+                    <p>
+                        This approach enables users to analyze data at different levels of granularity without duplicating records or inflating totals. For example, a single dataset can support both entity-level summaries and transaction-level drilldowns without restructuring the underlying data. This is particularly valuable in financial environments where accuracy and traceability are critical.
+                    </p>
+
+                    <p>
+                        When implemented correctly, relationships allow Tableau to dynamically determine how data should be combined based on the context of the visualization. This reduces the need for manual data modeling while ensuring that financial metrics remain consistent and reliable across reports.
+                    </p>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="module-section" id="section2">
+            <div class="content-wrapper">
+
+                <div class="content-image float-left">
+                    <img
+                        src="images/tableau_calculated_fields.jpg"
+                        alt="Tableau Calculated Fields"
+                        title="Tableau Calculated Fields"
+                        width="380"
+                        height="220"
+                        class="img-fluid rounded shadow-sm"
+                    >
+                    <div class="photo-credit">
+                        <i>Source: https://help.tableau.com/current/pro/desktop/en-us/calculations_calculatedfields_tips.htm</i>
+                    </div>
+                </div>
+
+                <div class="content-text">
+                    <h2 class="fw-bold">2. Using Calculated Fields to Standardize Financial Logic</h2>
+
+                    <p>
+                        Financial reporting depends on consistent logic. Calculated fields allow users to define standardized rules directly within Tableau, ensuring that metrics such as revenue classifications, expense groupings, and net income calculations are applied uniformly across all visualizations.
+                    </p>
+
+                    <p>
+                        By embedding financial logic into calculated fields, organizations reduce the risk of inconsistent reporting caused by manual adjustments or spreadsheet-based calculations. This is especially important in environments where multiple users interact with the same dataset.
+                    </p>
+
+                    <p>
+                        Over time, these calculated fields form a reusable library of financial definitions that can be applied across dashboards, improving both efficiency and accuracy. Proper naming conventions and documentation are essential to ensure these calculations remain understandable and maintainable.
+                    </p>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="module-section" id="section3">
+            <div class="content-wrapper">
+
+                <div class="content-image float-right">
+                    <img
+                        src="images/tableau_dashboard_actions.png"
+                        alt="Tableau Dashboard Actions"
+                        title="Tableau Dashboard Actions"
+                        width="380"
+                        height="220"
+                        class="img-fluid rounded shadow-sm"
+                    >
+                    <div class="photo-credit">
+                        <i>Source: https://help.tableau.com/current/pro/desktop/en-us/actions_dashboards.htm</i>
+                    </div>
+                </div>
+
+                <div class="content-text">
+                    <h2 class="fw-bold">3. Designing Interactive Financial Dashboards</h2>
+
+                    <p>
+                        Static financial reports limit insight by presenting information in a fixed format. Tableau dashboards enable users to interact with data dynamically, filtering by entity, time period, or account structure to explore trends and identify anomalies in real time.
+                    </p>
+
+                    <p>
+                        Well-designed dashboards strike a balance between clarity and depth. Executive-level views should emphasize high-level performance indicators, while more detailed views should allow analysts to investigate underlying transactions and drivers of variance.
+                    </p>
+
+                    <p>
+                        By leveraging dashboard actions, filters, and layout design, organizations can create reporting environments that adapt to the needs of different users without requiring multiple separate reports. This significantly improves both usability and scalability.
+                    </p>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="module-section" id="section4">
+            <div class="content-wrapper">
+
+                <div class="content-image float-left">
+                    <img
+                        src="images/tableau_lod_expressions.png"
+                        alt="Tableau LOD Expressions"
+                        title="Tableau LOD Expressions"
+                        width="380"
+                        height="220"
+                        class="img-fluid rounded shadow-sm"
+                    >
+                    <div class="photo-credit">
+                        <i>Source: https://help.tableau.com/current/pro/desktop/en-us/calculations_calculatedfields_lod.htm</i>
+                    </div>
+                </div>
+
+                <div class="content-text">
+                    <h2 class="fw-bold">4. Leveraging LOD Expressions for Advanced Analysis</h2>
+
+                    <p>
+                        Financial analysis often requires calculations at different levels of detail than what is displayed. LOD expressions allow users to define calculations that operate independently of the current view, enabling more advanced comparisons and metrics.
+                    </p>
+
+                    <p>
+                        This is particularly useful for building ratios such as percentage of total revenue, fixed cost allocations, or entity-level summaries within a detailed transaction view. Without LOD expressions, these calculations would require extensive preprocessing outside of Tableau.
+                    </p>
+
+                    <p>
+                        When used correctly, LOD expressions provide a powerful way to enhance analytical depth while maintaining clean and intuitive dashboards. However, they should be implemented thoughtfully to avoid unnecessary complexity.
+                    </p>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="module-section" id="section5">
+            <div class="content-wrapper">
+
+                <div class="content-image float-right">
+                    <img
+                        src="images/tableau_filters.jpg"
+                        alt="Tableau Data Extracts"
+                        title="Tableau Data Extracts"
+                        width="380"
+                        height="220"
+                        class="img-fluid rounded shadow-sm"
+                    >
+                    <div class="photo-credit">
+                        <i>Source: https://data-flair.training/blogs/tableau-filters/</i>
+                    </div>
+                </div>
+
+                <div class="content-text">
+                    <h2 class="fw-bold">5. Optimizing Performance with Extracts and Filters</h2>
+
+                    <p>
+                        Performance is a critical factor in financial reporting. Large datasets can significantly slow down dashboards if not managed properly. Tableau extracts and data source filters allow users to limit the volume of data being processed, improving speed and responsiveness.
+                    </p>
+
+                    <p>
+                        By filtering data to relevant time periods, active entities, or specific business units, organizations can reduce unnecessary processing overhead. This not only improves performance but also enhances usability by focusing users on the most relevant information.
+                    </p>
+
+                    <p>
+                        Scheduled extract refreshes further streamline reporting workflows by ensuring that dashboards are always up to date without requiring manual intervention. This supports a more automated and reliable reporting environment.
+                    </p>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+</main>
+
+<!--Bootstrap JS bundle -->
+<script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+    crossorigin="anonymous"
+></script>
+
+</body>
+</html>
